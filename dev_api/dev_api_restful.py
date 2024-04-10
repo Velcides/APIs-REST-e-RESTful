@@ -2,7 +2,7 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
 import json
-from habilities import Habilities, HabilitiesModifier
+from dev_api.habilities import Habilities, HabilitiesModifier
 
 # Definindo nossa API com o Flask
 app = Flask(__name__)
