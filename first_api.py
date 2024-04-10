@@ -1,4 +1,4 @@
-# API que soma números.
+# API REST que soma números.
 from flask import Flask, jsonify, request
 import json
 # jsonify permite que a requisição retorne inforções no formato JSON.

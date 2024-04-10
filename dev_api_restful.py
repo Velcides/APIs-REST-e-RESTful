@@ -1,9 +1,13 @@
-# Criando API REST que manipula registros em uma lista dados de funcionários.
-from flask import Flask, jsonify, request
+# Criando API RESTful que manipula registros em uma lista dados de funcionários.
+from flask import Flask, request
+from flask_restful import Resource, Api
 import json
+from habilities import Habilities
 
 # Definindo nossa API com o Flask
 app = Flask(__name__)
+# Definindo nossa API com o Flask-RESTful
+api = Api(app)
 
 # Definindo lista que receberá os registros.
 developers = [
@@ -11,12 +15,10 @@ developers = [
     {'id': 1,'Name':'Velcides', 'Habilities':['Python', 'Django']}
 ]
 
-# Retorna, altera e deleta Devs.
-# Definindo o retorno do usuário pelo id.
-@app.route('/dev/<int:id>/', methods=['GET', 'PUT', 'DELETE'])
-def developer(id):
-    if request.method == 'GET':
-       # Tratamento de erros para o caso do usuário for deletado/"desindexado"
+# Criando Classe com funções para Retornar, alterar e deletar Devs.
+class Developers(Resource):
+    def get(self, id):
+        # Tratamento de erros para o caso do usuário for deletado/"desindexado"
         try:
             # Relacionando o id da lista ao id do dev.
             developer_response = developers[id]
@@ -29,38 +31,41 @@ def developer(id):
             developer_response = {'status':'Error', 'Message':message}
 
         # Retorna o registro.
-        return jsonify(developer_response)
+        return developer_response
     
-    elif request.method == 'PUT':
+    def put(self, id):
         # Recebe os dados do put em json
         data = json.loads(request.data)
         developers[id] = data
         # Retorna o registro que foi alterado.
-        return jsonify(data)
-    
-    elif request.method == 'DELETE':
+        return data
+
+    def delete(self, id):
         # Deleta o registro.
         developers.pop(id)
         # Retorna a menssagem de sucesso.
-        return jsonify({'stats':'Sucess', 'message':'Deleted!'})
+        return {'stats':'Sucess', 'message':'Deleted!'}
 
-# Criando função para inserir devs e listar todos.
-@app.route('/dev/', methods= ['POST', 'GET'])
-def developers_list():
-    if request.method == 'POST':
+# Criando Classe com funções para inserir devs e listar todos.   
+class DevelopersList(Resource):
+    def post(self):
         # Recebendo dados de inserção.
         data = json.loads(request.data)
-         # Atribuindo o número do id por meio da posição no dict.
+        # Atribuindo o número do id por meio da posição no dict.
         position = len(developers)
         data['id'] = position
         # Inserindo dados recebidos da lista.
         developers.append(data)
         # Retorna menssagem de sucesso.
-        return jsonify({'Status':'Sucess!', 'Message':'New Dev Inserted!'})
-    
-    elif request.method == 'GET':
-        return jsonify(developers)
+        return {'Status':'Sucess!', 'Message':'New Dev Inserted!'}
+
+    def get(self):
+        return developers
+
+# Definindo as routes.
+api.add_resource(Developers, '/dev/<int:id>/')
+api.add_resource(DevelopersList, '/dev/')
+api.add_resource(Habilities, '/habilities/')
 
 if __name__ == '__main__':
     app.run(debug=True)
-

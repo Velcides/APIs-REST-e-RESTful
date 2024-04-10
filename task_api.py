@@ -1,4 +1,4 @@
-# Criando API que gerencia cadastro de tarefas.
+# Criando API REST que gerencia cadastro de tarefas.
 from flask import Flask, jsonify, request
 import json
 

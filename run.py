@@ -1,4 +1,4 @@
-# Cria uma aplicação (API) mostrando a mensagem 'Hello World' no localhost na porta 5000.
+# Cria uma aplicação (API REST) mostrando a mensagem 'Hello World' no localhost na porta 5000.
 from flask import Flask 
 
 # Definindo nossa API com o Flask
