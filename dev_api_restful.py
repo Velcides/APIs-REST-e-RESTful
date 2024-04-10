@@ -2,7 +2,7 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
 import json
-from habilities import Habilities
+from habilities import Habilities, HabilitiesModifier
 
 # Definindo nossa API com o Flask
 app = Flask(__name__)
@@ -66,6 +66,9 @@ class DevelopersList(Resource):
 api.add_resource(Developers, '/dev/<int:id>/')
 api.add_resource(DevelopersList, '/dev/')
 api.add_resource(Habilities, '/habilities/')
+api.add_resource(HabilitiesModifier, '/habilities/<int:id>/')
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
