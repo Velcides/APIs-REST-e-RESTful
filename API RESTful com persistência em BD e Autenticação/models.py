@@ -23,7 +23,7 @@ Base = declarative_base()
 Base.query = db_session.query_property()
 
 # Criando as classes (Tabelas).
-class Pessoa(Base):
+class Pessoas(Base):
     __tablename__='pessoas'
     id = Column(Integer, primary_key=True)
     nome = Column(String(40), index=True)
@@ -47,7 +47,7 @@ class Atividade(Base):
     id = Column(Integer, primary_key=True)
     nome = Column(String(80))
     pessoa_id = Column(Integer, ForeignKey('pessoas.id'))
-    pessoa = relationship("Pessoa")
+    pessoa = relationship("Pessoas")
     
     def __repr__(self):
         return '<Atividade {}>'.format(self.nome)
