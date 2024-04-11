@@ -56,7 +56,7 @@
 - Na Pasta dev_api:
     - dev_api: API REST que manipula registros em uma lista dados de funcionários.
     - dev_api_restful: API RESTful que manipula registros em uma lista dados de funcionários.
-- API RESTful com persistencia no BD e autenticação:
+- Na pasta API RESTful com persistencia no BD e autenticação:
     - api_atividade: API RESTful com manipulação de dados das tabelas Pessoa, Atividades e Usuarios, por meio de autenticação.
     - models: Código onde ficam os módelos de classes a serem persistidas no banco de dados.  
     - utils: Possui funções teste para manipulação das tabelas.
